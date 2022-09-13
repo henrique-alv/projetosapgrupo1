@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+	<style type="text/css">
+		ul li{
+			list-style: none;
+		}
+
+		label{
+	 		width: 100px;
+	 		display: inline-block;
+		}
+
+		a{
+			cursor: pointer;
+		}
+
+		a:hover{
+			text-decoration: underline;
+		}
+
+		input {
+			width: 300px;
+			height: 20px;
+			border-radius: 5px;
+		}
+
+		.danger{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<h1>Alunos DS</h1>
+
+		<p><label>Nome:</label> <input type="text" id="nome"></p>
+		<p><label>Nascimento:</label> <input type="text" id="nascimento"></p>
+		<p><label>Cidade:</label> <input type="text" id="cidade"></p>
+		<button onclick="cadastrar()">Cadastrar</button>
+
+		<hr>
+
+		<p id="dadosInseridos"></p>
+
+<script>
+	//Crição do array alunos vazio
+	const alunos = []
+
+	//Função para limpar os dados dos inputs
+	function limparDados(){
+		document.getElementById('nome').value = ''
+		document.getElementById('nascimento').value = ''
+		document.getElementById('cidade').value = ''
+	}
+
+	//Função para remover um determinado valor do array
+	function remover(index){
+		alunos.splice(index,1)
+
+		return document.getElementById('dadosInseridos').innerHTML = '<h3 class="danger">Aluno Removido com Sucesso!</h3>'+exibir()
+	}
+
+	//Função para exibir todos os dados dos alunos que estão no array
+	function exibir(){
+		html = '<h2>Alunos Cadastrados</h2>'
+
+		html += '<ul>'	
+
+		alunos.forEach((aluno,index) => {
+		   html += '<li><p>Nome: <strong>'+ aluno.nome +'</strong></p>'
+		   html += '<p>Nascimento: <strong>'+ aluno.nascimento +'</strong></p>'
+		   html += '<p>Cidade: <strong>'+ aluno.cidade +'</strong></p>'
+		   html += '<p><a onclick="remover('+index+')">Remover</a></p></li>'
+		   html += '<hr>'
+		})
+
+		html += '</ul>'
+
+		limparDados()
+
+		return document.getElementById('dadosInseridos').innerHTML = html
+	}
+
+	//Função para cadastrar um novo aluno e inseri-lo no array
+	function cadastrar(){
+		var nomeAluno = document.getElementById('nome').value
+		var nascimentoAluno = document.getElementById('nascimento').value
+		var cidadeAluno = document.getElementById('cidade').value
+
+		aluno = { nome: nomeAluno, nascimento: nascimentoAluno, cidade: cidadeAluno}
+
+		alunos.push(aluno)
+
+		exibir()
+		
+	}
+</script>		
+</script>
+</body>
+</html>

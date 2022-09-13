@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>Primeiro projeto</title>
+    <style type="text/css">
+		ul li{
+			list-style: none;
+		}
+
+		label{
+	 		width: 100px;
+	 		display: inline-block;
+		}
+
+		a{
+			cursor: pointer;
+		}
+
+		a:hover{
+			text-decoration: underline;
+		}
+
+		input {
+			width: 300px;
+			height: 20px;
+			border-radius: 5px;
+		}
+
+		.danger{
+			color: red;
+		}
+	</style>
+</head>
+<body>
+    <nav>
+<div class="logo">
+    <h1>ALMOÇO ETE</h1>
+</div>
+<button>&#9776;</button>
+
+<ul>
+<li>
+    <P> <a href="web/turmas/cadastroturma.html">Turmas</a></P>
+</li>
+<li>
+    <p>ordem</p>
+</li>
+<li>
+    <p>Horários</p>
+</li>
+<li>
+    <p>Sair</p>
+</li>
+</ul>
+</nav>
+<h1> TURMAS </h1>
+
+		<p><label>Nome:</label> <input type="text" id="nome"></p>
+		<p><label>Série:</label> <input type="text" id="serie"></p>
+		<p><label>Ano:</label> <input type="text" id="ano"></p>
+		<button onclick="cadastrar()">Cadastrar</button>
+
+		<hr>
+
+		<p id="dadosInseridos"></p>
+
+<script>
+	//Crição do array alunos vazio
+	const turmas = []
+
+	//Função para limpar os dados dos inputs
+	function limparDados(){
+		document.getElementById('nome').value = ''
+		document.getElementById('serie').value = ''
+		document.getElementById('ano').value = ''
+	}
+
+	//Função para remover um determinado valor do array
+	function remover(index){
+		turmas.splice(index,1)
+
+		return document.getElementById('dadosInseridos').innerHTML = '<h3 class="danger">Turma Removida com Sucesso!</h3>'+exibir()
+	}
+
+	//Função para exibir todos os dados dos alunos que estão no array
+	function exibir(){
+		html = '<h2>Turmas Cadastradas</h2>'
+
+		html += '<ul>'	
+
+		turmas.forEach((turma,index) => {
+		   html += '<li><p>Nome: <strong>'+ turma.nome +'</strong></p>'
+		   html += '<p>Série: <strong>'+ turma.serie +'</strong></p>'
+		   html += '<p>Ano: <strong>'+ turma.ano +'</strong></p>'
+		   html += '<p><a onclick="remover('+index+')">Remover</a></p></li>'
+		   html += '<hr>'
+		})
+
+		html += '</ul>'
+
+		limparDados()
+
+		return document.getElementById('dadosInseridos').innerHTML = html
+	}
+
+	//Função para cadastrar um novo aluno e inseri-lo no array
+	function cadastrar(){
+		var nomeTurma = document.getElementById('nome').value
+		var sérieTurma = document.getElementById('serie').value
+		var anoTurma = document.getElementById('ano').value
+
+		turma = { nome: nomeTurma, serie: sérieTurma, ano: anoTurma}
+
+		turmas.push(turma)
+
+		exibir()
+		
+	}
+</script>		
+</script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Exemplo Form</title>
+</head>
+
+<body>
+    <div class="container">
+      <h1>Cadastro de Turmas</h1>
+        
+            <div class="mb-3">
+              <label for="Curso" class="form-label">curso :</label>
+              <input type="text" class="form-control" id="curso" name="curso">
+            </div><div class="mb-3">
+              <label for="Nome" class="form-label">nome :</label>
+              <input type="text" class="form-control" id="nome" name="nome">
+            </div>
+            <div class="mb-3">
+              <label for="ano" class="form-label">ano :</label>
+              <input type="text" class="form-control" id="ano" name="ano">
+            </div>
+            
+            <div class="mb-3">
+              <label for="serie" class="form-label">Série:</label>
+              <input type="text" class="form-control" id="serie" name="serie">
+            </div>
+            
+            <button class="btn btn-primary mt-2" onclick="cadastrar()">Enviar Dados</button>
+          
+    </div>
+
+    <div id="dadosInseridos"></div>
+    <script src="scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+        <script>
+          //Crição do array alunos vazio
+          const turmas = []
+        
+          //Função para limpar os dados dos inputs
+          function limparDados(){
+            document.getElementById('curso').value = ''
+            document.getElementById('nome').value = ''
+            document.getElementById('ano').value = ''
+            document.getElementById('serie').value = ''
+          }
+        
+          //Função para remover um determinado valor do array
+          function remover(index){
+            turmas.splice(index,1)
+        
+            return document.getElementById('dadosInseridos').innerHTML = '<h3 class="danger">Turma Removida com Sucesso!</h3>'+exibir()
+          }
+        
+          //Função para exibir todos os dados dos alunos que estão no array
+          function exibir(){
+            html = '<h2>Turmas Cadastradas</h2>'
+        
+            html += '<ul>'	
+        
+            turmas.forEach((turma,index) => {
+               html += '<li><p>Curso: <strong>'+ turma.curso +'</strong></p>'
+               html += '<p>Nome: <strong>'+ turma.nome +'</strong></p>'
+               html += '<p>Ano: <strong>'+ turma.ano +'</strong></p>'
+               html += '<p>Serie: <strong>'+ turma.serie +'</strong></p>'
+               html += '<p><a onclick="remover('+index+')">Remover</a></p></li>'
+               html += '<hr>'
+            })
+            
+        
+            html += '</ul>'
+        
+            limparDados()
+        
+            return document.getElementById('dadosInseridos').innerHTML = html
+          }
+        
+          //Função para cadastrar um novo aluno e inseri-lo no array
+          function cadastrar(){
+            console.log(document.getElementById('curso').value)
+            
+            var nomeCurso = document.getElementById('curso').value
+            var nomeTurma = document.getElementById('nome').value
+            var nomeAno= document.getElementById('ano').value
+            var nomeSerie= document.getElementById('serie').value
+            
+        
+            turma = { curso: nomeCurso, nome: nomeTurma, ano: nomeAno, serie: nomeSerie}
+        
+            turmas.push(turma)
+        
+            exibir()
+
+          }
+          
+        </script>
+</body>
+
+</html>
